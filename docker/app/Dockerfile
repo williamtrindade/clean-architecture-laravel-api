@@ -2,22 +2,20 @@
 FROM php:8.2-fpm-alpine
 
 # Instala as dependências do sistema
-RUN apk update
-
-RUN apk add \
-    --no-cache \
+RUN apk update && \
+    apk add --no-cache \
     git \
     unzip \
     libxml2-dev \
     oniguruma-dev \
-    libpq \
-    libpq-dev \
+    mysql-client \
+    mysql-dev \
     linux-headers
 
 # Instala as extensões do PHP
 RUN docker-php-ext-install  \
     pdo \
-    pdo_pgsql \
+    pdo_mysql \
     exif \
     mbstring \
     bcmath \
