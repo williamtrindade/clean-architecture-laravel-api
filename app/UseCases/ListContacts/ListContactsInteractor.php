@@ -4,12 +4,14 @@ namespace App\UseCases\ListContacts;
 
 use App\UseCases\Contracts\ContactRepositoryInterface;
 use App\UseCases\ListContacts\Boundaries\ListContactsInputBoundary;
+use App\UseCases\ListContacts\Boundaries\ListContactsOutputBoundary;
 use App\UseCases\ListContacts\DTOs\ListContactsResponseModel;
 
 final readonly class ListContactsInteractor implements ListContactsInputBoundary
 {
     public function __construct(
-        private ContactRepositoryInterface $contactRepository
+        private ContactRepositoryInterface $contactRepository,
+        private ListContactsOutputBoundary $presenter
     ) {
     }
 
@@ -18,7 +20,7 @@ final readonly class ListContactsInteractor implements ListContactsInputBoundary
      */
     public function list(): array
     {
-        // 1. Pega o array de Entidades do repositório
+        // 1. Pega o array de Entidades do repositorio
         $contactEntities = $this->contactRepository->findAll();
 
         // 2. Mapeia cada Entidade para o seu DTO de Resposta
@@ -32,7 +34,7 @@ final readonly class ListContactsInteractor implements ListContactsInputBoundary
             );
         }
 
-        // 3. Retorna o array de DTOs, e não de Entidades
-        return $responseModels;
+        // 3. Entregamos ao presenter que seta o ViewModel
+        return $this->presenter->present($responseModels);
     }
 }

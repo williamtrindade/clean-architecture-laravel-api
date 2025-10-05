@@ -3,10 +3,10 @@
 namespace App\UseCases\FindContact;
 
 use App\UseCases\Contracts\ContactRepositoryInterface;
+use App\UseCases\Exceptions\ResourceNotFoundException;
 use App\UseCases\FindContact\Boundaries\FindContactInputBoundary;
 use App\UseCases\FindContact\Boundaries\FindContactOutputBoundary;
 use App\UseCases\FindContact\DTOs\FindContactResponseModel;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final readonly class FindContactInteractor implements FindContactInputBoundary
 {
@@ -16,12 +16,15 @@ final readonly class FindContactInteractor implements FindContactInputBoundary
     ) {
     }
 
+    /**
+     * @throws ResourceNotFoundException
+     */
     public function find(int $id): FindContactResponseModel
     {
         $contact = $this->contactRepository->findById($id);
 
         if (!$contact) {
-            throw new NotFoundHttpException('Contato não encontrado.');
+            throw new ResourceNotFoundException('Contato nao encontrado.');
         }
 
         // Criamos o DTO de resposta
@@ -32,7 +35,7 @@ final readonly class FindContactInteractor implements FindContactInputBoundary
             email: $contact->getEmail()
         );
 
-        // Entregamos ao presenter e retornamos o resultado formatado
+        // Entregamos ao presenter para setar o ViewModel
         return $this->presenter->present($responseModel);
     }
 }

@@ -4,21 +4,24 @@ namespace App\UseCases\DeleteContact;
 
 use App\UseCases\Contracts\ContactRepositoryInterface;
 use App\UseCases\DeleteContact\Boundaries\DeleteContactInputBoundary;
-use DomainException;
+use App\UseCases\Exceptions\ResourceNotFoundException;
 
-final class DeleteContactInteractor implements DeleteContactInputBoundary
+final readonly class DeleteContactInteractor implements DeleteContactInputBoundary
 {
     public function __construct(
-        private readonly ContactRepositoryInterface $contactRepository
+        private ContactRepositoryInterface $contactRepository
     ) {
     }
 
+    /**
+     * @throws ResourceNotFoundException
+     */
     public function delete(int $id): bool
     {
         $contact = $this->contactRepository->findById($id);
 
         if (!$contact) {
-            throw new DomainException('Contato não encontrado para exclusão.');
+            throw new ResourceNotFoundException('Contato nao encontrado para exclusao.');
         }
 
         return $this->contactRepository->delete($id);

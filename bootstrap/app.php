@@ -34,7 +34,13 @@ return Application::configure(basePath: dirname(__DIR__))
                 if ($e instanceof  \Symfony\Component\HttpKernel\Exception\NotFoundHttpException) {
                     return response()->json(['error' => ['message' => 'O recurso solicitado não foi encontrado.']], 404);
                 }
+                if ($e instanceof \App\UseCases\Exceptions\ResourceNotFoundException) {
+                    return response()->json(['error' => ['message' => 'O recurso solicitado não foi encontrado.']], 404);
+                }
                 if ($e instanceof \DomainException || $e instanceof \InvalidArgumentException) {
+                    return response()->json(['error' => ['message' => $e->getMessage()]], 422);
+                }
+                if ($e instanceof \App\UseCases\Exceptions\BusinessRuleException) {
                     return response()->json(['error' => ['message' => $e->getMessage()]], 422);
                 }
                 $statusCode = method_exists($e, 'getStatusCode') ? $e->getStatusCode() : 500;

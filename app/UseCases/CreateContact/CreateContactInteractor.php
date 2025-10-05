@@ -8,7 +8,7 @@ use App\UseCases\CreateContact\Boundaries\CreateContactInputBoundary;
 use App\UseCases\CreateContact\Boundaries\CreateContactOutputBoundary;
 use App\UseCases\CreateContact\DTOs\CreateContactRequestModel;
 use App\UseCases\CreateContact\DTOs\CreateContactResponseModel;
-use InvalidArgumentException;
+use App\UseCases\Exceptions\BusinessRuleException;
 
 final readonly class CreateContactInteractor implements CreateContactInputBoundary
 {
@@ -18,14 +18,17 @@ final readonly class CreateContactInteractor implements CreateContactInputBounda
     ) {
     }
 
+    /**
+     * @throws BusinessRuleException
+     */
     public function create(CreateContactRequestModel $requestModel): CreateContactResponseModel
     {
-        // 1. Verifica se o contato já existe (regra da aplicação)
+        // 1. Verifica se o contato ja existe (regra da aplicacao)
         if ($this->contactRepository->existsByEmail($requestModel->email)) {
-            throw new InvalidArgumentException('O e-mail informado já está em uso.');
+            throw new BusinessRuleException('O e-mail informado ja esta em uso.');
         }
 
-        // 2. Cria a entidade, que valida as regras de negócio intrínsecas
+        // 2. Cria a entidade, que valida as regras de negocio intrinsecas
         $contact = new Contact(
             id: null,
             name: $requestModel->name,
@@ -33,7 +36,7 @@ final readonly class CreateContactInteractor implements CreateContactInputBounda
             email: $requestModel->email
         );
 
-        // 3. Persiste a entidade através da interface do repositório
+        // 3. Persiste a entidade atraves da interface do repositorio
         $savedContact = $this->contactRepository->save($contact);
 
         // 4. Prepara o DTO de resposta
@@ -44,7 +47,7 @@ final readonly class CreateContactInteractor implements CreateContactInputBounda
             phoneNumber: $savedContact->getPhoneNumber()
         );
 
-        // 5. Entrega o DTO de resposta para o Presenter através da interface de saída
+        // 5. Entrega o DTO de resposta para o Presenter atraves da interface de saida
         return $this->presenter->present($responseModel);
     }
 }

@@ -39,7 +39,7 @@ final class Contact
     public function setName(string $name): void
     {
         if (trim($name) === '') {
-            throw new InvalidArgumentException('O nome não pode estar vazio.');
+            throw new InvalidArgumentException('O nome nao pode estar vazio.');
         }
         $this->name = $name;
     }
@@ -47,7 +47,7 @@ final class Contact
     public function setPhoneNumber(string $phoneNumber): void
     {
         if (!preg_match('/^\+?[0-9]{8,15}$/', $phoneNumber)) {
-            throw new InvalidArgumentException('Número de telefone inválido.');
+            throw new InvalidArgumentException('Numero de telefone invalido.');
         }
         $this->phoneNumber = $phoneNumber;
     }
@@ -55,7 +55,7 @@ final class Contact
     public function setEmail(string $email): void
     {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            throw new InvalidArgumentException('E-mail inválido.');
+            throw new InvalidArgumentException('E-mail invalido.');
         }
         $this->email = $email;
     }
