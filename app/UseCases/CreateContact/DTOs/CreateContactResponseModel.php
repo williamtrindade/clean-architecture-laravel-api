@@ -2,13 +2,13 @@
 
 namespace App\UseCases\CreateContact\DTOs;
 
-// É um DTO para carregar os dados de saída do caso de uso.
-final class CreateContactResponseModel
+final readonly class CreateContactResponseModel
 {
     public function __construct(
-        public readonly int $id,
-        public readonly string $name,
-        public readonly string $email
+        public int $id,
+        public string $name,
+        public string $email,
+        public string $phoneNumber
     ) {
     }
 }

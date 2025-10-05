@@ -1,8 +1,8 @@
 <?php
 
-namespace App\UseCases\FindContact\DTOs;
+namespace App\InterfaceAdapters\ViewModels;
 
-final readonly class FindContactResponseModel
+final class ContactViewModel
 {
     public function __construct(
         public int $id,

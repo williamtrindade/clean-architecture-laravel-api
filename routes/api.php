@@ -1,10 +1,17 @@
 <?php
 
-use App\Http\Controllers\ContactController;
+use App\InterfaceAdapters\Http\Controllers\Contact\CreateContactController;
+use App\InterfaceAdapters\Http\Controllers\Contact\DeleteContactController;
+use App\InterfaceAdapters\Http\Controllers\Contact\FindContactController;
+use App\InterfaceAdapters\Http\Controllers\Contact\ListContactsController;
+use App\InterfaceAdapters\Http\Controllers\Contact\UpdateContactController;
 use Illuminate\Support\Facades\Route;
 
-Route::post('/contacts', [ContactController::class, 'store']);
-Route::get('/contacts', [ContactController::class, 'index']);
-Route::get('/contacts/{id}', [ContactController::class, 'show']);
-Route::put('/contacts/{id}', [ContactController::class, 'update']);
-Route::delete('/contacts/{id}', [ContactController::class, 'destroy']);
+// Agrupando as rotas para o recurso 'contacts'
+Route::prefix('contacts')->group(function () {
+    Route::get('/', ListContactsController::class)->name('contacts.index');
+    Route::post('/', CreateContactController::class)->name('contacts.store');
+    Route::get('/{id}', FindContactController::class)->name('contacts.show');
+    Route::put('/{id}', UpdateContactController::class)->name('contacts.update');
+    Route::delete('/{id}', DeleteContactController::class)->name('contacts.destroy');
+});

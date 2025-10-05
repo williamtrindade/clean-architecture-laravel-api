@@ -1,8 +1,8 @@
 <?php
 
-namespace App\UseCases\FindContact\DTOs;
+namespace App\UseCases\ListContacts\DTOs;
 
-final readonly class FindContactResponseModel
+final readonly class ListContactsResponseModel
 {
     public function __construct(
         public int $id,

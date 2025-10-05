@@ -1,5 +1,6 @@
 <?php
 
 return [
-    App\Providers\AppServiceProvider::class,
+    \App\FrameworksAndDrivers\Providers\AppServiceProvider::class,
+    \App\FrameworksAndDrivers\Providers\CleanArchServiceProvider::class
 ];

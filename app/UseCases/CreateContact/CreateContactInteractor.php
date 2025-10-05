@@ -10,12 +10,11 @@ use App\UseCases\CreateContact\DTOs\CreateContactRequestModel;
 use App\UseCases\CreateContact\DTOs\CreateContactResponseModel;
 use InvalidArgumentException;
 
-// Contém a lógica de negócio pura.
-final class CreateContactInteractor implements CreateContactInputBoundary
+final readonly class CreateContactInteractor implements CreateContactInputBoundary
 {
     public function __construct(
-        private readonly ContactRepositoryInterface $contactRepository,
-        private readonly CreateContactOutputBoundary $presenter
+        private ContactRepositoryInterface $contactRepository,
+        private CreateContactOutputBoundary $presenter
     ) {
     }
 
@@ -39,9 +38,10 @@ final class CreateContactInteractor implements CreateContactInputBoundary
 
         // 4. Prepara o DTO de resposta
         $responseModel = new CreateContactResponseModel(
-            id: $savedContact->getId(),
+            id: 1000,
             name: $savedContact->getName(),
-            email: $savedContact->getEmail()
+            email: $savedContact->getEmail(),
+            phoneNumber: $savedContact->getPhoneNumber()
         );
 
         // 5. Entrega o DTO de resposta para o Presenter através da interface de saída
