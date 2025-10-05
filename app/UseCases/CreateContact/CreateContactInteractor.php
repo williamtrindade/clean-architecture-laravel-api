@@ -41,9 +41,9 @@ final readonly class CreateContactInteractor implements CreateContactInputBounda
 
         // 4. Prepara o DTO de resposta
         $responseModel = new CreateContactResponseModel(
-            id: 1000,
-            name: $savedContact->getName(),
-            email: $savedContact->getEmail(),
+            id:          $savedContact->getId(),
+            name:        $savedContact->getName(),
+            email:       $savedContact->getEmail(),
             phoneNumber: $savedContact->getPhoneNumber()
         );
 

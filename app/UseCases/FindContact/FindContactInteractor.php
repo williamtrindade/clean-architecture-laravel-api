@@ -29,10 +29,10 @@ final readonly class FindContactInteractor implements FindContactInputBoundary
 
         // Criamos o DTO de resposta
         $responseModel = new FindContactResponseModel(
-            id: $contact->getId(),
-            name: $contact->getName(),
+            id:          $contact->getId(),
+            name:        $contact->getName(),
             phoneNumber: $contact->getPhoneNumber(),
-            email: $contact->getEmail()
+            email:       $contact->getEmail()
         );
 
         // Entregamos ao presenter para setar o ViewModel
