@@ -10,8 +10,8 @@ class CleanArchServiceProvider extends ServiceProvider
     {
         // --- Ligacao do Repositorio (Adaptador de Dados) ---
         $this->app->bind(
-            \App\InterfaceAdapters\Repositories\ContactRepository::class,
-            \App\UseCases\Contracts\ContactRepositoryInterface::class
+            \App\UseCases\Contracts\ContactRepositoryInterface::class,
+            \App\InterfaceAdapters\Repositories\ContactRepository::class
         );
 
         // --- Ligacao dos Presenters (Adaptadores de Saida) ---

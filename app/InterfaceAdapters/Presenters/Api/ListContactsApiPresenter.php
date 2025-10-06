@@ -16,7 +16,7 @@ class ListContactsApiPresenter implements ListContactsOutputBoundary
         $this->viewModels = [];
         foreach ($responseModels as $responseModel) {
             $this->viewModels[] = new ContactViewModel(
-                id:          11111,
+                id:          $responseModel->id,
                 name:        $responseModel->name,
                 phoneNumber: $responseModel->phoneNumber,
                 email:       $responseModel->email
