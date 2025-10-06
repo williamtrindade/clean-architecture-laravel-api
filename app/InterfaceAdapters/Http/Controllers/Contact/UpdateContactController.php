@@ -3,6 +3,7 @@
 namespace App\InterfaceAdapters\Http\Controllers\Contact;
 
 use App\InterfaceAdapters\Http\Controllers\Controller;
+use App\InterfaceAdapters\Presenters\Api\UpdateContactApiPresenter;
 use App\UseCases\UpdateContact\Boundaries\UpdateContactInputBoundary;
 use App\UseCases\UpdateContact\DTOs\UpdateContactRequestModel;
 use Illuminate\Http\JsonResponse;
@@ -11,7 +12,8 @@ use Illuminate\Http\Request;
 class UpdateContactController extends Controller
 {
     public function __construct(
-        private readonly UpdateContactInputBoundary $interactor
+        private readonly UpdateContactInputBoundary $interactor,
+        private readonly UpdateContactApiPresenter $presenter
     ) {
     }
 
@@ -24,7 +26,9 @@ class UpdateContactController extends Controller
             email: $request->get('email')
         );
 
-        $updatedContactArray = $this->interactor->update($requestModel);
-        return response()->json($updatedContactArray);
+        $this->interactor->update($requestModel);
+        $viewModel = $this->presenter->getViewModel();
+
+        return response()->json($viewModel);
     }
 }

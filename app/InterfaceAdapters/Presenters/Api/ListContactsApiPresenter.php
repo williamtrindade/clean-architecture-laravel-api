@@ -11,7 +11,7 @@ class ListContactsApiPresenter implements ListContactsOutputBoundary
 
     public function present(
         array $responseModels
-    ): array
+    ): void
     {
         $this->viewModels = [];
         foreach ($responseModels as $responseModel) {
@@ -22,7 +22,6 @@ class ListContactsApiPresenter implements ListContactsOutputBoundary
                 email:       $responseModel->email
             );
         }
-        return $responseModels;
     }
 
     public function getViewModel(): array

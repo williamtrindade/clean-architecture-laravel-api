@@ -19,7 +19,7 @@ final readonly class FindContactInteractor implements FindContactInputBoundary
     /**
      * @throws ResourceNotFoundException
      */
-    public function find(int $id): FindContactResponseModel
+    public function find(int $id): void
     {
         $contact = $this->contactRepository->findById($id);
 
@@ -27,7 +27,6 @@ final readonly class FindContactInteractor implements FindContactInputBoundary
             throw new ResourceNotFoundException('Contato nao encontrado.');
         }
 
-        // Criamos o DTO de resposta
         $responseModel = new FindContactResponseModel(
             id:          $contact->getId(),
             name:        $contact->getName(),
@@ -35,7 +34,6 @@ final readonly class FindContactInteractor implements FindContactInputBoundary
             email:       $contact->getEmail()
         );
 
-        // Entregamos ao presenter para setar o ViewModel
-        return $this->presenter->present($responseModel);
+        $this->presenter->present($responseModel);
     }
 }

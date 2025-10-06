@@ -15,10 +15,7 @@ final readonly class ListContactsInteractor implements ListContactsInputBoundary
     ) {
     }
 
-    /**
-     * @return array<int, ListContactsResponseModel>
-     */
-    public function list(): array
+    public function list(): void
     {
         // 1. Pega o array de Entidades do repositorio
         $contactEntities = $this->contactRepository->findAll();
@@ -35,6 +32,6 @@ final readonly class ListContactsInteractor implements ListContactsInputBoundary
         }
 
         // 3. Entregamos ao presenter que seta o ViewModel
-        return $this->presenter->present($responseModels);
+        $this->presenter->present($responseModels);
     }
 }

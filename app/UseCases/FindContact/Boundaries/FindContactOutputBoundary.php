@@ -6,5 +6,5 @@ use App\UseCases\FindContact\DTOs\FindContactResponseModel;
 
 interface FindContactOutputBoundary
 {
-    public function present(FindContactResponseModel $responseModel): FindContactResponseModel;
+    public function present(FindContactResponseModel $responseModel): void;
 }

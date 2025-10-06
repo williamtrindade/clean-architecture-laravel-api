@@ -16,7 +16,7 @@ final readonly class DeleteContactInteractor implements DeleteContactInputBounda
     /**
      * @throws ResourceNotFoundException
      */
-    public function delete(int $id): bool
+    public function delete(int $id): void
     {
         $contact = $this->contactRepository->findById($id);
 
@@ -24,6 +24,6 @@ final readonly class DeleteContactInteractor implements DeleteContactInputBounda
             throw new ResourceNotFoundException('Contato nao encontrado para exclusao.');
         }
 
-        return $this->contactRepository->delete($id);
+        $this->contactRepository->delete($id);
     }
 }

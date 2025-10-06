@@ -2,13 +2,13 @@
 
 namespace App\UseCases\UpdateContact\DTOs;
 
-final readonly class UpdateContactRequestModel
+final class UpdateContactResponseModel
 {
     public function __construct(
         public int $id,
         public string $name,
-        public string $phoneNumber,
-        public string $email
+        public string $email,
+        public string $phoneNumber
     ) {
     }
 }

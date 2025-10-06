@@ -3,14 +3,14 @@
 namespace App\InterfaceAdapters\Presenters\Api;
 
 use App\InterfaceAdapters\ViewModels\ContactViewModel;
-use App\UseCases\FindContact\Boundaries\FindContactOutputBoundary;
-use App\UseCases\FindContact\DTOs\FindContactResponseModel;
+use App\UseCases\UpdateContact\Boundaries\UpdateContactOutputBoundary;
+use App\UseCases\UpdateContact\DTOs\UpdateContactResponseModel;
 
-class FindContactApiPresenter implements FindContactOutputBoundary
+class UpdateContactApiPresenter implements UpdateContactOutputBoundary
 {
     private ContactViewModel $viewModel;
 
-    public function present(FindContactResponseModel $responseModel): void
+    public function present(UpdateContactResponseModel $responseModel): void
     {
         $this->viewModel = new ContactViewModel(
             id: $responseModel->id,

@@ -10,7 +10,7 @@ class CreateContactApiPresenter implements CreateContactOutputBoundary
 {
     private ContactViewModel $viewModel;
 
-    public function present(CreateContactResponseModel $responseModel): CreateContactResponseModel
+    public function present(CreateContactResponseModel $responseModel): void
     {
         $this->viewModel = new ContactViewModel(
             id: $responseModel->id,
@@ -18,7 +18,6 @@ class CreateContactApiPresenter implements CreateContactOutputBoundary
             phoneNumber: $responseModel->phoneNumber,
             email: $responseModel->email
         );
-        return $responseModel;
     }
 
     public function getViewModel(): ContactViewModel
